@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>崔庆的博客</title>
+  <title>崔庆的光影笔记</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
@@ -18,13 +18,19 @@
         opacity: 1;
       }
     }
+    .hover-shadow:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .scale-up:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body class="bg-gradient-to-b from-blue-100 via-white to-purple-100 text-gray-800 min-h-screen">
   <!-- 顶部导航 -->
   <header class="bg-white shadow p-4 sticky top-0 z-50 fade-in">
     <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-indigo-600">崔庆的博客</h1>
+      <h1 class="text-3xl font-bold text-indigo-600 fade-in">崔庆的光影笔记</h1>
       <nav>
         <a href="#home" class="mx-2 text-indigo-500 hover:underline">首页</a>
         <a href="#posts" class="mx-2 text-indigo-500 hover:underline">文章</a>
@@ -34,24 +40,31 @@
 
   <!-- 首页内容 -->
   <section id="home" class="container mx-auto p-8 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-md mt-6 fade-in">
-    <h2 class="text-3xl font-semibold mb-4 text-indigo-700">欢迎来到崔庆的博客</h2>
-    <p class="text-lg mb-6 text-gray-700">这是一个简约风格的静态个人博客，用于分享我的想法与文章。</p>
+    <h2 class="text-3xl font-semibold mb-4 text-indigo-700 fade-in">欢迎来到崔庆的光影笔记</h2>
+    <p class="text-lg mb-6 text-gray-700 fade-in">这是一个简约风格的静态个人博客，用于分享我的想法与文章。</p>
     <div class="text-sm text-gray-600">
       当前时间：<span id="clock"></span>
       <br>
       清溪镇天气：<span id="weather"></span>
     </div>
+    <p class="mt-6 text-lg text-gray-600">用文字记录世界，用心感受生活。</p>
+  </section>
+
+  <!-- 关于我部分 -->
+  <section id="about-me" class="container mx-auto p-8 mt-8 bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow-md fade-in">
+    <h3 class="text-2xl font-semibold mb-4 text-indigo-700">关于我</h3>
+    <p class="text-lg text-gray-700">你好，我是崔庆。喜欢在平凡的生活中，发现不平凡的事物。在这片虚拟的世界里，我用文字记录那些感动、困惑、成长的瞬间，分享给每一个热爱生活的你。</p>
   </section>
 
   <!-- 文章列表 -->
   <section id="posts" class="container mx-auto p-8 mt-8 fade-in">
-    <h2 class="text-2xl font-semibold mb-4 text-purple-700">文章列表</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-purple-700 fade-in">文章列表</h2>
     <ul class="space-y-4">
-      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition">
+      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
         <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">春日随笔：光与暖</a>
         <p class="text-gray-600 text-sm mt-1">春风拂面，万物复苏。在这个温柔的时节里，愿你能放慢脚步，感受生活的静美。无论前方如何，心中有光，就不惧远方。</p>
       </li>
-      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition">
+      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
         <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">星空下的梦想</a>
         <p class="text-gray-600 text-sm mt-1">愿你在奔赴热爱的途中，不忘仰望星空；愿你在繁华与寂静之间，寻得心安之所。文字是灵魂的出口，也是温暖的归宿。</p>
       </li>
@@ -60,39 +73,39 @@
 
   <!-- 底部信息 -->
   <footer class="bg-white bg-opacity-80 p-4 text-center text-gray-600 text-sm mt-12 rounded-t-lg fade-in">
-    &copy; 2025 崔庆的博客. 保留所有权利。
+    &copy; 2025 崔庆的光影笔记. 保留所有权利。
   </footer>
 
   <!-- JavaScript 时钟与天气 -->
   <script>
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString('zh-CN');
-      document.getElementById('clock').textContent = time;
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('zh-CN');
+    document.getElementById('clock').textContent = time;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // 获取清溪镇天气信息（经纬度方式）
+  async function fetchWeather() {
+    const apiKey = '24f18e8811e97b24a0b7d578247387f1'; // API 密钥
+    const lat = 22.8523;  // 清溪镇纬度
+    const lon = 114.1277; // 清溪镇经度
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=zh_cn`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const temperature = data.main.temp;
+      const description = data.weather[0].description;
+      document.getElementById('weather').textContent = `${description}, ${temperature}°C`;
+    } catch (error) {
+      console.error('获取天气信息失败：', error);
+      document.getElementById('weather').textContent = '无法获取天气信息';
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+  }
 
-    // 获取清溪镇天气信息（示例：需替换为有效API）
-    async function fetchWeather() {
-      const apiKey = '24f18e8811e97b24a0b7d578247387f1'; // 替换为您的 API 密钥
-      const city = 'Qingxi';
-      const country = 'CN';
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric&lang=zh_cn`;
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const temperature = data.main.temp;
-        const description = data.weather[0].description;
-        document.getElementById('weather').textContent = `${description}, ${temperature}°C`;
-      } catch (error) {
-        console.error('获取天气信息失败：', error);
-        document.getElementById('weather').textContent = '无法获取天气信息';
-      }
-    }
-
-    fetchWeather();
+  fetchWeather();
   </script>
 </body>
 </html>
