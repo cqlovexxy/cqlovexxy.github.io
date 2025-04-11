@@ -8,6 +8,7 @@
   <style>
     body {
       font-family: 'Helvetica Neue', sans-serif;
+      transition: background-color 0.5s ease;
     }
     .fade-in {
       animation: fadeIn 1.2s ease-in forwards;
@@ -43,10 +44,13 @@
     <h2 class="text-3xl font-semibold mb-4 text-indigo-700 fade-in">欢迎来到崔庆的光影笔记</h2>
     <p class="text-lg mb-6 text-gray-700 fade-in">这是一个简约风格的静态个人博客，用于分享我的想法与文章。</p>
     <div class="text-sm text-gray-600">
-      当前时间：<span id="clock"></span>
-      <br>
-      清溪镇天气：<span id="weather"></span>
+      当前时间：<span id="clock"></span><br>
+      今日日期：<span id="today-date"></span><br>
+      清溪镇天气：<span id="weather-qingxi">加载中…</span><br>
+      冷水镇天气：<span id="weather-lengshui">加载中…</span><br>
+      你所在位置天气：<span id="weather-local">定位中…</span><br>
     </div>
+
     <p class="mt-6 text-lg text-gray-600">用文字记录世界，用心感受生活。</p>
   </section>
 
@@ -58,18 +62,34 @@
 
   <!-- 文章列表 -->
   <section id="posts" class="container mx-auto p-8 mt-8 fade-in">
-    <h2 class="text-2xl font-semibold mb-4 text-purple-700 fade-in">文章列表</h2>
-    <ul class="space-y-4">
-      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
-        <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">春日随笔：光与暖</a>
-        <p class="text-gray-600 text-sm mt-1">春风拂面，万物复苏。在这个温柔的时节里，愿你能放慢脚步，感受生活的静美。无论前方如何，心中有光，就不惧远方。</p>
-      </li>
-      <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
-        <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">星空下的梦想</a>
-        <p class="text-gray-600 text-sm mt-1">愿你在奔赴热爱的途中，不忘仰望星空；愿你在繁华与寂静之间，寻得心安之所。文字是灵魂的出口，也是温暖的归宿。</p>
-      </li>
-    </ul>
-  </section>
+  <h2 class="text-2xl font-semibold mb-4 text-purple-700 fade-in">文章列表</h2>
+  <ul class="space-y-4">
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">春日随笔：光与暖</a>
+      <p class="text-gray-600 text-sm mt-1">春风拂面，万物复苏。在这个温柔的时节里，愿你能放慢脚步，感受生活的静美。无论前方如何，心中有光，就不惧远方。</p>
+    </li>
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">星空下的梦想</a>
+      <p class="text-gray-600 text-sm mt-1">愿你在奔赴热爱的途中，不忘仰望星空；愿你在繁华与寂静之间，寻得心安之所。文字是灵魂的出口，也是温暖的归宿。</p>
+    </li>
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">岁月如歌：时光的印记</a>
+      <p class="text-gray-600 text-sm mt-1">时光如歌，岁月是音符，随着我们每一个步伐轻轻奏响。回望过去，才明白有些瞬间是永远无法抹去的印记。我们所有的成长，都是这首歌的旋律。</p>
+    </li>
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">在晨光中等你</a>
+      <p class="text-gray-600 text-sm mt-1">清晨的阳光洒在大地上，万物苏醒。也许，你还未醒来，但这世界已经为你而亮起。在这一刻，我在晨光中等你，期待与你共度这最美的时光。</p>
+    </li>
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">流星划过：短暂而美丽</a>
+      <p class="text-gray-600 text-sm mt-1">在这个浩瀚的夜空中，偶尔会有流星划过。它们短暂而美丽，给我们带来无尽的遐想和希望。或许，这就是生活的真实写照：短暂但充满光辉。</p>
+    </li>
+    <li class="p-4 bg-white bg-opacity-90 rounded-xl shadow hover:shadow-lg transition scale-up">
+      <a href="#" class="text-xl text-indigo-600 font-medium hover:underline">在云端漫步</a>
+      <p class="text-gray-600 text-sm mt-1">有时，我想象自己在云端漫步。轻盈地穿越白云，俯瞰这片土地上的点滴事物。或许，生活中的一些烦恼不过是云朵，随风而去，不必过于执着。</p>
+    </li>
+  </ul>
+</section>
 
   <!-- 底部信息 -->
   <footer class="bg-white bg-opacity-80 p-4 text-center text-gray-600 text-sm mt-12 rounded-t-lg fade-in">
@@ -78,34 +98,109 @@
 
   <!-- JavaScript 时钟与天气 -->
   <script>
-  function updateClock() {
-    const now = new Date();
-    const time = now.toLocaleTimeString('zh-CN');
-    document.getElementById('clock').textContent = time;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+    const apiKey = '24f18e8811e97b24a0b7d578247387f1';
 
-  // 获取清溪镇天气信息（经纬度方式）
-  async function fetchWeather() {
-    const apiKey = '24f18e8811e97b24a0b7d578247387f1'; // API 密钥
-    const lat = 22.8523;  // 清溪镇纬度
-    const lon = 114.1277; // 清溪镇经度
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=zh_cn`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      const temperature = data.main.temp;
-      const description = data.weather[0].description;
-      document.getElementById('weather').textContent = `${description}, ${temperature}°C`;
-    } catch (error) {
-      console.error('获取天气信息失败：', error);
-      document.getElementById('weather').textContent = '无法获取天气信息';
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString('zh-CN');
+      document.getElementById('clock').textContent = time;
     }
-  }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-  fetchWeather();
+    function updateDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const weekday = ['日','一','二','三','四','五','六'][now.getDay()];
+      document.getElementById('today-date').textContent = `${year}年${month}月${day}日 星期${weekday}`;
+    }
+    updateDate();
+
+    function getWeatherEmoji(main) {
+      switch (main) {
+        case 'Clear': return '☀️';
+        case 'Clouds': return '☁️';
+        case 'Rain':
+        case 'Drizzle': return '🌧️';
+        case 'Thunderstorm': return '⛈️';
+        case 'Snow': return '❄️';
+        case 'Mist':
+        case 'Fog':
+        case 'Haze': return '🌫️';
+        default: return '🌈';
+      }
+    }
+
+    function setBodyBackground(main) {
+      const body = document.body;
+      switch (main) {
+        case 'Clear': body.style.backgroundColor = '#fefce8'; break; // 亮黄
+        case 'Clouds': body.style.backgroundColor = '#e0f2f1'; break; // 青灰
+        case 'Rain': case 'Drizzle': body.style.backgroundColor = '#cfd8dc'; break; // 灰蓝
+        case 'Thunderstorm': body.style.backgroundColor = '#b0bec5'; break;
+        case 'Snow': body.style.backgroundColor = '#e0f7fa'; break; // 冰蓝
+        case 'Mist': case 'Fog': case 'Haze': body.style.backgroundColor = '#eceff1'; break;
+        default: body.style.backgroundColor = '#f3e8ff'; break;
+      }
+    }
+
+    async function fetchWeather(cityName, elementId) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},CN&appid=${apiKey}&units=metric&lang=zh_cn`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const temp = data.main.temp;
+        const desc = data.weather[0].description;
+        const icon = data.weather[0].icon;
+        const main = data.weather[0].main;
+        const windSpeed = data.wind.speed; // 风速
+        const emoji = getWeatherEmoji(main);
+
+        document.getElementById(elementId).innerHTML = `${emoji} ${desc}, ${temp}°C, 风速: ${windSpeed} m/s`;
+
+        if (elementId === 'weather-qingxi') {
+          setBodyBackground(main);
+        }
+      } catch (error) {
+        console.error(`获取 ${cityName} 天气失败：`, error);
+        document.getElementById(elementId).textContent = '无法获取天气';
+      }
+    }
+
+    async function fetchLocalWeather() {
+      if (!navigator.geolocation) {
+        document.getElementById('weather-local').textContent = '无法获取位置';
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=zh_cn`;
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+          const temp = data.main.temp;
+          const desc = data.weather[0].description;
+          const icon = data.weather[0].icon;
+          const main = data.weather[0].main;
+          const windSpeed = data.wind.speed; // 风速
+          const emoji = getWeatherEmoji(main);
+
+          document.getElementById('weather-local').innerHTML = `${emoji} ${desc}, ${temp}°C, 风速: ${windSpeed} m/s`;
+        } catch (e) {
+          document.getElementById('weather-local').textContent = '获取失败';
+        }
+      }, () => {
+        document.getElementById('weather-local').textContent = '获取位置失败';
+      });
+    }
+
+    // 加载天气数据
+    fetchWeather('dongguan', 'weather-qingxi');
+    fetchWeather('zhongxiang', 'weather-lengshui');
+    fetchLocalWeather();
   </script>
 </body>
 </html>
