@@ -15,7 +15,7 @@
       transition: background-color 0.5s ease;
     }
 
-   .fade-in {
+    .fade-in {
       animation: fadeIn 1.2s ease-in forwards;
       opacity: 0;
     }
@@ -27,36 +27,13 @@
     }
 
     @media (max-width: 768px) {
-     .text-3xl {
+      .text-3xl {
         font-size: 1.875rem;
       }
 
-     .text-2xl {
+      .text-2xl {
         font-size: 1.5rem;
       }
-    }
-
-   .weather-container {
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background-color: #f9f9f9;
-    }
-
-   .weather-emoji {
-      font-size: 28px;
-      margin-right: 8px;
-    }
-
-   .weather-details {
-      margin-top: 8px;
-      line-height: 1.4;
-    }
-
-   .weather-label {
-      font-weight: bold;
-      margin-right: 5px;
     }
   </style>
 </head>
@@ -80,9 +57,9 @@
     <div class="text-sm text-gray-600">
       当前时间：<span id="clock"></span><br>
       今日日期：<span id="today-date"></span><br>
-      <div class="weather-container" id="weather-qingxi"></div>
-      <div class="weather-container" id="weather-lengshui"></div>
-      <div class="weather-container" id="weather-local"></div>
+      清溪镇天气：<span id="weather-qingxi"></span><br>
+      冷水镇天气：<span id="weather-lengshui"></span><br>
+      当前位置天气：<span id="weather-local"></span><br>
       当前位置今日是否下雨：<span id="rain-today-local"></span><br>
       <span id="rain-time-row-local" style="display: none;">当前位置今日下雨时间段：<span id="rain-time-today-local"></span><br></span>
     </div>
@@ -201,16 +178,7 @@
           const humidity = currentWeather.main.humidity;
           const emoji = getWeatherEmoji(main);
 
-          const weatherElement = document.getElementById(elementId);
-          weatherElement.innerHTML = `
-            <span class="weather-emoji">${emoji}</span>
-            <span>${desc}, 温度: ${temp}°C</span>
-            <div class="weather-details">
-              <span class="weather-label">湿度:</span> ${humidity}%, 
-              <span class="weather-label">温度范围:</span> ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 
-              <span class="weather-label">风速:</span> ${windSpeed} m/s
-            </div>
-          `;
+          document.getElementById(elementId).innerHTML = `${emoji} ${desc}, 温度: ${temp}°C, 湿度: ${humidity}%, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
 
           if (elementId === 'weather-qingxi') {
             setBodyBackground(main);
@@ -261,16 +229,7 @@
             const humidity = currentWeather.main.humidity;
             const emoji = getWeatherEmoji(main);
 
-            const weatherElement = document.getElementById('weather-local');
-            weatherElement.innerHTML = `
-              <span class="weather-emoji">${emoji}</span>
-              <span>${desc}, 温度: ${temp}°C</span>
-              <div class="weather-details">
-                <span class="weather-label">湿度:</span> ${humidity}%, 
-                <span class="weather-label">温度范围:</span> ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 
-                <span class="weather-label">风速:</span> ${windSpeed} m/s
-              </div>
-            `;
+            document.getElementById('weather-local').innerHTML = `${emoji} ${desc}, 温度: ${temp}°C, 湿度: ${humidity}%, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
           } catch (e) {
             document.getElementById('weather-local').textContent = '获取位置天气失败，可能是网络问题或API密钥错误';
           }
@@ -307,6 +266,50 @@
                 }
               }
             });
-            document.getElementById('rain-today-local').textContent = willRain? '是' : '否';
+            document.getElementById('rain-today-local').textContent = willRain ? '是' : '否';
             if (rainTimes.length > 0) {
-              document.getElementById  
+              document.getElementById('rain-time-today-local').textContent = rainTimes.join(' - ');
+              document.getElementById('rain-time-row-local').style.display = 'block';
+            } else {
+              document.getElementById('rain-time-row-local').style.display = 'none';
+            }
+          } catch (e) {
+            document.getElementById('rain-today-local').textContent = '获取位置下雨信息失败，可能是网络问题或API密钥错误';
+            document.getElementById('rain-time-today-local').textContent = '获取位置下雨信息失败，可能是网络问题或API密钥错误';
+          }
+        }, () => {
+          document.getElementById('rain-today-local').textContent = '获取位置失败，您可以手动输入位置查询';
+          document.getElementById('rain-time-today-local').textContent = '获取位置失败，您可以手动输入位置查询';
+        });
+      }
+
+      // 初始化天气数据获取
+      fetchWeather('dongguan', 'weather-qingxi');
+      fetchWeather('zhongxiang', 'weather-lengshui');
+      fetchLocalWeather();
+      fetchLocalRainInfo();
+    })();
+
+    // 时钟相关函数
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString('zh-CN');
+      document.getElementById('clock').textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 日期相关函数
+    function updateDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const weekday = ['日', '一', '二', '三', '四', '五', '六'][now.getDay()];
+      document.getElementById('today-date').textContent = `${year}年${month}月${day}日 星期${weekday}`;
+    }
+    updateDate();
+  </script>
+</body>
+
+</html>
