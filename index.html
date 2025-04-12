@@ -175,9 +175,10 @@
           const desc = currentWeather.weather[0].description;
           const main = currentWeather.weather[0].main;
           const windSpeed = currentWeather.wind.speed;
+          const humidity = currentWeather.main.humidity;
           const emoji = getWeatherEmoji(main);
 
-          document.getElementById(elementId).innerHTML = `${emoji} ${desc}, ${temp}°C, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
+          document.getElementById(elementId).innerHTML = `${emoji} ${desc}, 温度: ${temp}°C, 湿度: ${humidity}%, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
 
           if (elementId === 'weather-qingxi') {
             setBodyBackground(main);
@@ -225,9 +226,10 @@
             const desc = currentWeather.weather[0].description;
             const main = currentWeather.weather[0].main;
             const windSpeed = currentWeather.wind.speed;
+            const humidity = currentWeather.main.humidity;
             const emoji = getWeatherEmoji(main);
 
-            document.getElementById('weather-local').innerHTML = `${emoji} ${desc}, ${temp}°C, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
+            document.getElementById('weather-local').innerHTML = `${emoji} ${desc}, 温度: ${temp}°C, 湿度: ${humidity}%, 温度范围: ${minTemp.toFixed(1)}°C - ${maxTemp.toFixed(1)}°C, 风速: ${windSpeed} m/s`;
           } catch (e) {
             document.getElementById('weather-local').textContent = '获取位置天气失败，可能是网络问题或API密钥错误';
           }
